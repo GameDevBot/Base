@@ -5,9 +5,9 @@ import java.awt.*;
  */
 public interface entity {
 
-    int getX();
-    int getY();
-    int getH();
-    int getW();
+    double getX();
+    double getY();
+    double getH();
+    double getW();
     void draw(Graphics g);
 }

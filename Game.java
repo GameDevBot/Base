@@ -14,7 +14,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     Thread thread;
 
     //Game variables
-    public ArrayList<entity> entities;
+    public ArrayList <entity> entities;
+    private SideScroller scroller;
 
     public Game()
     {
@@ -37,6 +38,11 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     }
 
     private void update(double delta)
+    {
+        scroll();
+    }
+
+    private void scroll()
     {
 
     }
@@ -82,18 +88,13 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
     public void keyPressed(KeyEvent e) {
-
+        KeyBoard.KeyPressed(e.getKeyCode(),true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        KeyBoard.KeyPressed(e.getKeyCode(),false);
     }
 
     @Override
@@ -112,22 +113,28 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     }
 
     @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    //Unused
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
     public void mouseEntered(MouseEvent e) {
 
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
 
     }
 }
