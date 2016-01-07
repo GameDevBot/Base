@@ -19,15 +19,15 @@ public class SideScroller {
 
     public SideScroller()
     {
-        allPoints = new ArrayList(3);
+        allPoints = new <LinkedList> ArrayList(3);
 
-        nearBG = new LinkedList();
+        nearBG = new <TerrainPoint> LinkedList();
         allPoints.add(nearBG);
 
-        midBG = new LinkedList();
+        midBG = new <TerrainPoint> LinkedList();
         allPoints.add(midBG);
 
-        farBG = new LinkedList();
+        farBG = new <TerrainPoint> LinkedList();
         allPoints.add(farBG);
 
         for(int i = 0; i < allPoints.size(); i++)
@@ -38,6 +38,7 @@ public class SideScroller {
             {
                 TerrainPoint point = generatePoint(i, previous);
                 allPoints.get(i).addLast(point);
+                previous = point;
             }
         }
     }
@@ -57,20 +58,20 @@ public class SideScroller {
         }
 
         if(previous.y > scale * 200 + 100)
-            y = previous.y + random.nextInt(scale * 5)-15;
+            y = previous.y + random.nextInt(scale * 5 + 1) - 15;
 
         else if(previous.y < scale * 100 + 25)
-            y = previous.y + random.nextInt(scale * 5) + 15;
+            y = previous.y + random.nextInt(scale * 5 + 1) + 15;
 
         else
         {
             if(previous.rising)
-                y = previous.y + random.nextInt(scale * 5) - random.nextInt(scale * 4) + random.nextInt(5) - 5;
+                y = previous.y + random.nextInt(scale * 5 +1) - random.nextInt(scale * 4 +1) + random.nextInt(5) - 5;
             else
-                y = previous.y - random.nextInt(scale * 5) + random.nextInt(scale * 4) - random.nextInt(5) + 5;
+                y = previous.y - random.nextInt(scale * 5 +1) + random.nextInt(scale * 4 +1) - random.nextInt(5) + 5;
         }
 
-        x = previous.x + 600/pointSize[scale];
+        x = previous.x + 800/pointSize[scale]+1;
 
         if(previous.y - y < 0)
             return new TerrainPoint(x,y,true);
@@ -82,20 +83,48 @@ public class SideScroller {
     {
         Graphics2D g2d = (Graphics2D) g;
 
-        for(int i = allPoints.size(); i >= 0; i--) {
+        for(int i = 0; i < allPoints.size(); i++) {
 
-            int n = pointSize[i];
-            int[] allX = new int[pointSize[i]];
-            int[] allY = new int[pointSize[i]];
-            for(int j = 0; j < pointSize[i]; j++)
+            int n = pointSize[i]+2;
+            int[] allX = new int[pointSize[i]+2];
+            int[] allY = new int[pointSize[i]+2];
+
+            allX[0] = 0;
+            allY[0] = 600;
+
+            int j;
+            for(j = 0; j < pointSize[i]; j++)
             {
-                allX[j] = allPoints.get(i).get(j).x;
-                allY[j] = allPoints.get(i).get(j).y;
+                TerrainPoint p = (TerrainPoint) allPoints.get(i).get(j);
+                allX[j+1] = (int)p.x;
+                allY[j+1] = (int)p.y;
             }
 
-            GradientPaint paint = new GradientPaint(300, 50, Color.darkGray, 500, 0, Color.lightGray);
+            allX[j+1] = 1000;
+            allY[j+1] = 600;
+
+            GradientPaint paint;
+
+            switch(i) {
+                case (0):
+                    paint = new GradientPaint(0, i*200, Color.darkGray, 0, i*200 +200, Color.lightGray);
+                    break;
+
+                case (1):
+                    paint = new GradientPaint(0, i*200, Color.darkGray, 0, i*200 +200, Color.lightGray);
+                    break;
+
+                case (2):
+                    paint = new GradientPaint(0, i*200, Color.darkGray, 0, i*200 +200, Color.lightGray);
+                    break;
+
+                default:
+                    paint = new GradientPaint(0, i*200, Color.darkGray, 0, i*200 +200, Color.lightGray);
+                    break;
+            }
+            Polygon p = new Polygon(allX,allY,pointSize[i]+2);
             g2d.setPaint(paint);
-            g2d.fillPolygon(allX, allY, n);
+            g2d.fill(p);
         }
     }
 }

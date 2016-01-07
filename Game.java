@@ -12,6 +12,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
+    private long tick = 0;
 
     //Game variables
     public ArrayList <entity> entities;
@@ -85,6 +86,9 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
             {
                 e.printStackTrace();
             }
+            tick++;
+            //if(tick>100)
+            //    running=!running;
         }
     }
 
