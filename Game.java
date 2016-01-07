@@ -46,7 +46,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
-        hero = new Hero(0,0);
+        hero = new Hero(0,545);
         entities = new ArrayList();
     }
 
@@ -60,7 +60,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     private void update(double delta)
     {
         scroll();
-        hero.move();
+        hero.update();
         hero.keyboardMovement();
     }
 
