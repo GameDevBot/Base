@@ -9,5 +9,8 @@ public interface entity {
     double getY();
     double getH();
     double getW();
+    void setX(double d);
+    void setY(double d);
+    void update();
     void draw(Graphics g);
 }

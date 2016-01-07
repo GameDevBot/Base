@@ -36,8 +36,23 @@ public class Ledge implements entity{
     }
 
     @Override
+    public void setX(double d) {
+        this.x = d;
+    }
+
+    @Override
+    public void setY(double d) {
+        this.x = d;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
     public void draw(Graphics g) {
-        g.setColor(Color.BLUE);
+        g.setColor(Color.BLACK);
         g.fillRect((int)x,(int)y,(int)w,(int)h);
     }
 }
