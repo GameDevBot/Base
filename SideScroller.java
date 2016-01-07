@@ -31,7 +31,7 @@ public class SideScroller {
 
         for(ArrayList a : allPoints)
         {
-            for(int i = 0; i < )
+            //for(int i = 0; i < )
             {
 
             }

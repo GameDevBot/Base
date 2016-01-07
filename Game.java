@@ -6,10 +6,12 @@ import java.util.ArrayList;
 /**
  * Created by Damian Suski on 1/6/2016.
  */
-//REALLY MADE BY FARZA HAHAHA
+//REALLY MADE BY FARZA HAHAH
+    //why u no work!!!
 public class Game extends JPanel implements MouseListener,MouseMotionListener,KeyListener{
 
     //Main thread variables
+    Hero hero = new Hero(800, 600);
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -35,9 +37,13 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public void paint(Graphics g)
     {
         super.paint(g);
+        hero.draw(g);
 
     }
-
+    private void move()
+    {
+        hero.move();
+    }
     private void update(double delta)
     {
         scroll();
@@ -77,6 +83,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
             update(delta);
             repaint();
+            move();
 
             try{
                 Thread.sleep((lastLoopTime-System.nanoTime()+OPTIMAL_TIME)/1000000);
