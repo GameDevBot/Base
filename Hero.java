@@ -1,9 +1,11 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by Damian Suski on 1/6/2016.
  */
-public class Hero implements entity{
+public class Hero implements entity {
 
     private double x;
     private double y;
@@ -11,11 +13,14 @@ public class Hero implements entity{
     private int h = 30;
     private double velocity;
     int heroX = 0;
-    int heroDX = 1;
-    public Hero(double x, double y)
-    {
+    int heroDX;
+
+    public Hero(double x, double y) {
         this.x = x;
         this.y = y;
+        System.out.print("here\n");
+        System.out.print(x);
+        System.out.print(y);
     }
 
     @Override
@@ -45,11 +50,23 @@ public class Hero implements entity{
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(Color.WHITE);
         g2d.fillRect(heroX, 545, w, h);
-
     }
 
+    public void keyboardMovement()
+    {
+        if (KeyBoard.isPressed(KeyBoard.A))
+            heroDX = -5;
+        else if (!(KeyBoard.isPressed(KeyBoard.A)))
+            heroDX = 0;
+        if (KeyBoard.isPressed(KeyBoard.D))
+            heroDX = 5;
+    }
     public void move()
     {
-        heroX = heroDX + heroX;
+        if (heroX + heroDX > 0 && heroX + heroDX < 795 - w)
+        {
+            heroX = heroDX + heroX;
+        }
+
     }
 }

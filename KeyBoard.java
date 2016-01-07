@@ -1,4 +1,5 @@
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by Damian Suski on 1/6/2016.
@@ -23,4 +24,5 @@ public class KeyBoard {
     public static boolean isPressed(int key){
         return keyState[key];
     }
+
 }

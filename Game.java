@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Game extends JPanel implements MouseListener,MouseMotionListener,KeyListener{
 
     //Main thread variables
-    Hero hero = new Hero(800, 600);
+    Hero hero = new Hero(0,0);
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -26,8 +26,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         startThread();
     }
 
+
     private void initialize()
     {
+        addKeyListener(this);
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
@@ -40,13 +42,12 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         hero.draw(g);
 
     }
-    private void move()
-    {
-        hero.move();
-    }
+
     private void update(double delta)
     {
         scroll();
+        hero.move();
+        hero.keyboardMovement();
     }
 
     private void scroll()
@@ -83,7 +84,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
             update(delta);
             repaint();
-            move();
+            update(delta);
 
             try{
                 Thread.sleep((lastLoopTime-System.nanoTime()+OPTIMAL_TIME)/1000000);
