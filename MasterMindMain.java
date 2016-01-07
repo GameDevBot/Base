@@ -7,7 +7,7 @@ public class MasterMindMain extends JFrame {
 
     public MasterMindMain(int height, int width)
     {
-        setSize(height,width);
+        setSize(height, width);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
