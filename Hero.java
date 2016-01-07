@@ -12,15 +12,12 @@ public class Hero implements entity {
     private int w = 8;
     private int h = 30;
     private double velocity;
-    int heroX = 0;
-    int heroDX;
+    int heroX = 50;
+    int heroDX = 0;
 
     public Hero(double x, double y) {
         this.x = x;
         this.y = y;
-        System.out.print("here\n");
-        System.out.print(x);
-        System.out.print(y);
     }
 
     @Override
@@ -48,7 +45,7 @@ public class Hero implements entity {
     {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.GREEN);
         g2d.fillRect(heroX, 545, w, h);
     }
 
@@ -63,10 +60,17 @@ public class Hero implements entity {
     }
     public void move()
     {
-        if (heroX + heroDX > 0 && heroX + heroDX < 795 - w)
+        if(heroX + heroDX < 0)
         {
-            heroX = heroDX + heroX;
+            heroX = 0;
         }
 
+        else if(heroX + heroDX > 800 - w)
+        {
+            heroX = 792-w;
+        }
+
+        else
+            heroX += heroDX;
     }
 }

@@ -6,12 +6,22 @@ import java.util.ArrayList;
 /**
  * Created by Damian Suski on 1/6/2016.
  */
-//REALLY MADE BY FARZA HAHAH
-    //why u no work!!!
+//REALLY MADE BY FARZA HAHA
+
+    /*Ideas for final game:
+    Increase / decrease scroll speed
+    Reverse gravity
+    Bombs
+    Non lethal traps
+    Make hero invisible except for certain actions (or vice versa)
+    Invulnerability (except from falling)
+    Removing a ledge
+    Adding a ledge
+    */
 public class Game extends JPanel implements MouseListener,MouseMotionListener,KeyListener{
 
     //Main thread variables
-    Hero hero = new Hero(0,0);
+    Hero hero;
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -20,6 +30,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     //Game variables
     public ArrayList <entity> entities;
     private SideScroller scroller;
+    private double scrollRate = 2;
 
     public Game()
     {
@@ -35,14 +46,15 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
+        hero = new Hero(0,0);
         entities = new ArrayList();
     }
 
     public void paint(Graphics g)
     {
         super.paint(g);
-        hero.draw(g);
         scroller.paintBackground(g);
+        hero.draw(g);
     }
 
     private void update(double delta)
@@ -54,7 +66,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
     private void scroll()
     {
-
+        scroller.scroll(scrollRate);
     }
 
     private void startThread()
@@ -86,7 +98,6 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
             update(delta);
             repaint();
-            update(delta);
 
             try{
                 Thread.sleep((lastLoopTime-System.nanoTime()+OPTIMAL_TIME)/1000000);
@@ -150,5 +161,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public static Dimension getDimension()
+    {
+        return getDimension();
     }
 }
