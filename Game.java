@@ -25,6 +25,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
     private void initialize()
     {
+        scroller = new SideScroller();
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
@@ -34,7 +35,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public void paint(Graphics g)
     {
         super.paint(g);
-
+        scroller.paintBackground(g);
     }
 
     private void update(double delta)

@@ -18,22 +18,22 @@ public class Hero implements entity{
     }
 
     @Override
-    public int getX() {
+    public double getX() {
         return 0;
     }
 
     @Override
-    public int getY() {
+    public double getY() {
         return 0;
     }
 
     @Override
-    public int getH() {
+    public double getH() {
         return 0;
     }
 
     @Override
-    public int getW() {
+    public double getW() {
         return 0;
     }
 
