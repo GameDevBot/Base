@@ -65,6 +65,8 @@ public class Hero implements entity {
         else
             x += heroDX;
 
+        if (y + heroDY < 550)
+            y += heroDY;
     }
 
     @Override
