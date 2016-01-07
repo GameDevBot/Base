@@ -10,6 +10,7 @@ public class MasterMindMain extends JFrame {
         setSize(height, width);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        setLocationRelativeTo(null);
         setVisible(true);
         add(new Game());
     }

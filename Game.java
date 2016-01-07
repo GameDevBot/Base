@@ -100,7 +100,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
             repaint();
 
             try{
-                Thread.sleep((lastLoopTime-System.nanoTime()+OPTIMAL_TIME)/1000000);
+                if(lastLoopTime-System.nanoTime()+OPTIMAL_TIME > 0)
+                    Thread.sleep((lastLoopTime-System.nanoTime()+OPTIMAL_TIME)/1000000);
             }
             catch(Exception e)
             {
@@ -161,10 +162,5 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    public static Dimension getDimension()
-    {
-        return getDimension();
     }
 }

@@ -12,6 +12,7 @@ public class SideScroller {
     //Points for background drawing
     private int[] pointSize = {30,30,30};
 
+    private Random random = new Random(1);
     private LinkedList<TerrainPoint> nearBG;
     private LinkedList <TerrainPoint> midBG;
     private LinkedList <TerrainPoint> farBG;
@@ -45,8 +46,6 @@ public class SideScroller {
 
     public TerrainPoint generatePoint(int scale, TerrainPoint previous)
     {
-        Random random = new Random();
-
         double x;
         double y;
 
