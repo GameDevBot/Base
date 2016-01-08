@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Damian Suski on 1/6/2016.
@@ -28,9 +29,11 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     private long tick = 0;
 
     //Game variables
+    private int ledgeNumber = 20;
     public ArrayList <entity> entities;
     private SideScroller scroller;
     private double scrollRate = 2;
+    Random random = new Random(1);
 
     public Game()
     {
@@ -46,27 +49,101 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
-        hero = new Hero(0,0);
+        hero = new Hero(50,300);
         entities = new ArrayList();
+        generateInitialLedges();
+        entities.add(hero);
     }
 
     public void paint(Graphics g)
     {
         super.paint(g);
         scroller.paintBackground(g);
-        hero.draw(g);
+        for(entity e : entities)
+            e.draw(g);
+    }
+
+    private void generateInitialLedges()
+    {
+        Ledge previous = null;
+        for(int i=0;i<ledgeNumber;i++)
+        {
+            Ledge ledge = generateLedge(previous);
+            previous = ledge;
+            entities.add(ledge);
+        }
+    }
+
+    private Ledge generateLedge(Ledge previous)
+    {
+        if(previous == null)
+        {
+            return new Ledge(50,300+hero.getH(),10,50);
+        }
+
+        double ledgeX = previous.getX() + 100;
+        double ledgeY = 300;
+
+        if(previous.getY() == 300)
+        {
+            int determine = random.nextInt(2);
+
+            if(determine == 1)
+                ledgeY = 200;
+            else
+                ledgeY = 400;
+        }
+
+        else if(previous.getY() == 200)
+            ledgeY = 300;
+
+        else if(previous.getY() == 400)
+        {
+            int determine = random.nextInt(2);
+
+            if(determine == 1)
+                ledgeY = 300;
+            else
+                ledgeY = 500;
+        }
+
+        else if(previous.getY() == 500)
+            ledgeY = 400;
+
+        return new Ledge(ledgeX,ledgeY,10,50);
     }
 
     private void update(double delta)
     {
         scroll();
-        hero.move();
+        entities.forEach(entity::update);
         hero.keyboardMovement();
     }
 
     private void scroll()
     {
         scroller.scroll(scrollRate);
+        for(int i = 0; i< entities.size(); i++)
+        {
+            entity e = entities.get(i);
+            if(e instanceof Hero)
+                continue;
+
+
+            e.setX(e.getX() - scrollRate);
+
+            if(e.getX()<-50)
+            {
+                if(e instanceof Ledge)
+                {
+                    Ledge ledge = generateLedge((Ledge)e);
+                    ledge.setX(1000);
+                    entities.add(ledge);
+                }
+
+                entities.remove(e);
+            }
+        }
     }
 
     private void startThread()
