@@ -12,6 +12,7 @@ public class Hero implements entity {
     private double w = 8;
     private double h = 30;
     private int heroDX = 0;
+    private int heroDY = 0;
 
     public Hero(double x, double y) {
         this.x = x;
@@ -49,7 +50,8 @@ public class Hero implements entity {
     }
 
     @Override
-    public void update() {
+    public void update()
+    {
         if(x + heroDX < 0)
         {
             x = 0;
@@ -62,6 +64,9 @@ public class Hero implements entity {
 
         else
             x += heroDX;
+
+        if (y + heroDY < 550)
+            y += heroDY;
     }
 
     @Override
@@ -81,5 +86,9 @@ public class Hero implements entity {
             heroDX = 0;
         if (KeyBoard.isPressed(KeyBoard.D))
             heroDX = 5;
+        if (KeyBoard.isPressed(KeyBoard.W))
+            heroDY = -5;
+        if (!(KeyBoard.isPressed(KeyBoard.W)))
+            heroDY = 5;
     }
 }
