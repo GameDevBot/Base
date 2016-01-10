@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Created by Damian Suski on 1/6/2016.
@@ -13,7 +14,11 @@ public class Hero implements entity {
     private double h = 30;
     private int heroDX = 0;
     private int heroDY = 0;
-
+    private double ledgeY;
+    private double ledgeX;
+    private boolean onLedge = true;
+    private Rectangle rectangleLedge;
+    private Rectangle rectangleHero;
     public Hero(double x, double y) {
         this.x = x;
         this.y = y;
@@ -67,6 +72,7 @@ public class Hero implements entity {
 
         if (y + heroDY < 550)
             y += heroDY;
+
     }
 
     @Override
@@ -77,6 +83,37 @@ public class Hero implements entity {
         g2d.setColor(Color.GREEN);
         g2d.fillRect((int)x, (int)y, (int)w, (int)h);
     }
+
+    //Checks if hero collides with top of ledge using rectangle collision.
+    public void ledgeDetection(ArrayList entities)
+    {
+        for (int i = 0; i < entities.size(); i++)
+        {
+            entity e = (entity) entities.get(i);
+
+            if (e instanceof Hero)
+                continue;
+
+            if (e instanceof Ledge)
+            {
+                ledgeX = e.getX();
+                ledgeY = e.getY();
+            }
+
+            rectangleLedge = new Rectangle((int)ledgeX, (int)ledgeY, 50, 10);
+            rectangleHero = new Rectangle((int) x+heroDX, (int)y+heroDY, 8, 30);
+
+            if (collision()) {
+                if (ledgeY - 30 == y)
+                    heroDY = 0;
+                if (KeyBoard.isPressed(KeyBoard.S))
+                    heroDY = 5;
+            }
+
+        }
+    }
+
+    public boolean collision() {return rectangleHero.intersects(rectangleLedge);}
 
     public void keyboardMovement()
     {

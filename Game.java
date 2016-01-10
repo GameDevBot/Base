@@ -49,7 +49,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
-        hero = new Hero(50,300);
+        hero = new Hero(50,545);
         entities = new ArrayList();
         generateInitialLedges();
         entities.add(hero);
@@ -81,7 +81,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
             return new Ledge(50,300+hero.getH(),10,50);
         }
 
-        double ledgeX = previous.getX() + 100;
+        double ledgeX = previous .getX() + 100;
         double ledgeY = 300;
 
         if(previous.getY() == 300)
@@ -118,6 +118,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         scroll();
         entities.forEach(entity::update);
         hero.keyboardMovement();
+        hero.ledgeDetection(entities);
     }
 
     private void scroll()
