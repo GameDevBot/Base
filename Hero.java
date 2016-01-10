@@ -19,9 +19,12 @@ public class Hero implements entity {
     private boolean onLedge = true;
     private Rectangle rectangleLedge;
     private Rectangle rectangleHero;
-    public Hero(double x, double y) {
+    private Game game;
+
+    public Hero(double x, double y, Game game) {
         this.x = x;
         this.y = y;
+        this.game = game;
     }
 
     @Override
@@ -105,12 +108,23 @@ public class Hero implements entity {
 
             if (collision()) {
                 if (ledgeY - 30 == y)
+                {
                     heroDY = 0;
+                    heroScroll();
+                }
+
                 if (KeyBoard.isPressed(KeyBoard.S))
                     heroDY = 5;
             }
 
         }
+    }
+
+    public void heroScroll()
+    {
+        if(!KeyBoard.isPressed(KeyBoard.A)&&!KeyBoard.isPressed(KeyBoard.D))
+        heroDX = -(int)game.scrollRate;
+        onLedge = true;
     }
 
     public boolean collision() {return rectangleHero.intersects(rectangleLedge);}

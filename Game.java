@@ -32,7 +32,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     private int ledgeNumber = 20;
     public ArrayList <entity> entities;
     private SideScroller scroller;
-    private double scrollRate = 2;
+    public double scrollRate = 2;
     Random random = new Random(1);
 
     public Game()
@@ -49,7 +49,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         setFocusable(true);
         setBackground(Color.BLACK);
         requestFocus();
-        hero = new Hero(50,545);
+        hero = new Hero(50,545,this);
         entities = new ArrayList();
         generateInitialLedges();
         entities.add(hero);
