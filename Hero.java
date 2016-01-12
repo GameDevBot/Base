@@ -16,9 +16,12 @@ public class Hero implements entity {
     private int heroDY = 0;
     private double ledgeY;
     private double ledgeX;
+    private double gemX;
+    private double gemY;
     private boolean onLedge = true;
     private Rectangle rectangleLedge;
     private Rectangle rectangleHero;
+    private Rectangle rectangleGem;
     private Game game;
 
     public Hero(double x, double y, Game game) {
@@ -86,7 +89,39 @@ public class Hero implements entity {
         g2d.setColor(Color.GREEN);
         g2d.fillRect((int)x, (int)y, (int)w, (int)h);
     }
+    
+    public void gemDetection(ArrayList entities, Hero hero) 
+    {
+        for (int i = 0; i < entities.size(); i++)
+        {
+            entity e = (entity) entities.get(i);
 
+            if (e instanceof Hero)
+                continue;
+            if (e instanceof Ledge)
+                continue;
+            if (e instanceof Gem) 
+            {
+                gemX = e.getX();
+                gemY = e.getY();
+            
+            
+                rectangleHero = new Rectangle((int) x+heroDX, (int)y+heroDY, 8, 30);
+                rectangleGem = new Rectangle((int)gemX, (int)gemY, 15, 15);
+
+                if (gemCollision())
+                {
+                    entities.remove(e);
+                    GemGeneration gemGen = new GemGeneration();
+                    
+                    Gem gem = gemGen.generateGem((Gem)e, hero);
+                    gem.setX(1800);
+                    entities.add(gem);
+                }
+            }
+            
+        }
+    }
     //Checks if hero collides with top of ledge using rectangle collision.
     public void ledgeDetection(ArrayList entities)
     {
@@ -128,6 +163,8 @@ public class Hero implements entity {
     }
 
     public boolean collision() {return rectangleHero.intersects(rectangleLedge);}
+    
+    public boolean gemCollision() { return rectangleHero.intersects(rectangleGem);}
 
     public void keyboardMovement()
     {

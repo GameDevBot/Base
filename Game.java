@@ -23,6 +23,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
     //Main thread variables
     Hero hero;
+    GemGeneration gemGen = new GemGeneration(); 
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -52,6 +53,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         hero = new Hero(50,545,this);
         entities = new ArrayList();
         generateInitialLedges();
+        gemGen.generateInitialGems(entities, hero);
         entities.add(hero);
     }
 
@@ -119,6 +121,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         entities.forEach(entity::update);
         hero.keyboardMovement();
         hero.ledgeDetection(entities);
+        hero.gemDetection(entities, hero);
     }
 
     private void scroll()
@@ -141,6 +144,16 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
                     ledge.setX(1000);
                     entities.add(ledge);
                 }
+                
+                if (e instanceof Gem) 
+                {
+                    Gem gem = gemGen.generateGem((Gem)e, hero);
+                    gem.setX(1000);
+                    entities.add(gem);
+                }
+                   
+                
+          
 
                 entities.remove(e);
             }
