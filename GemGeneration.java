@@ -37,7 +37,7 @@ public class GemGeneration
             return new Gem(50,hero.getH(),15,15);
         }
 
-        double ledgeX = previous.getX() + 300;
+        double ledgeX = previous.getX() + 600;
         double ledgeY = 350;
 
         if(previous.getY() == 350)
