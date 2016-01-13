@@ -23,6 +23,7 @@ public class Hero implements entity {
     private Rectangle rectangleHero;
     private Rectangle rectangleGem;
     private Game game;
+    public int gravity = 5;
 
     public Hero(double x, double y, Game game) {
         this.x = x;
@@ -78,6 +79,9 @@ public class Hero implements entity {
 
         if (y + heroDY < 550)
             y += heroDY;
+
+        if(y + heroDY < 0)
+            y = 0;
 
     }
 
@@ -177,6 +181,6 @@ public class Hero implements entity {
         if (KeyBoard.isPressed(KeyBoard.W))
             heroDY = -5;
         if (!(KeyBoard.isPressed(KeyBoard.W)))
-            heroDY = 5;
+            heroDY = gravity;
     }
 }
