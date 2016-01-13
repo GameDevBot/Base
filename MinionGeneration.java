@@ -8,6 +8,7 @@ import java.util.Random;
 public class MinionGeneration {
 
     private double ledgeY;
+    private double ledgeX;
     Random random = new Random(500);
     Rectangle rectangleLedge;
 
@@ -18,7 +19,7 @@ public class MinionGeneration {
         {
             int d = random.nextInt(500);
             int f = random.nextInt(500);
-            entities.add(new Minion(300 + d, -100 - f, 10, 10));
+            entities.add(new Minion(500 + d, -100 - f, 10, 10));
         }
     }
 
@@ -32,13 +33,14 @@ public class MinionGeneration {
             {
                 rectangleLedge = new Rectangle((int) e.getX(), (int) e.getY() -2 , 50, 10);
                 ledgeY =  e.getY();
+                ledgeX = e.getX();
             }
 
             Rectangle rectangleMinion = new Rectangle((int) minion.getX(), (int) minion.getY(), 10, 10);
 
             if (collision(rectangleMinion, rectangleLedge))
             {
-                if (ledgeY  == minion.getY());
+                if (ledgeY  == minion.getY() && minion.getX() > ledgeX);
                     return true;
             }
         }

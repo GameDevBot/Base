@@ -22,14 +22,14 @@ import java.util.Random;
 public class Game extends JPanel implements MouseListener,MouseMotionListener,KeyListener{
 
     //Main thread variables
-<<<<<<< HEAD
-    Hero hero;
-    GemGeneration gemGen = new GemGeneration();
+
+    //Hero hero;
+    //GemGeneration gemGen = new GemGeneration();
     MinionGeneration minionGeneration = new MinionGeneration();
-=======
+
     public Hero hero;
-    GemGeneration gemGen = new GemGeneration(); 
->>>>>>> origin/master
+    GemGeneration gemGen = new GemGeneration();
+
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -40,12 +40,12 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public ArrayList <entity> entities;
     private SideScroller scroller;
     public double scrollRate = 2;
-<<<<<<< HEAD
-    Random random = new Random(2);
-=======
+
+    //Random random = new Random(2);
+
     private Random random = new Random(1);
     private CommandCard commands;
->>>>>>> origin/master
+
 
     public Game(CommandCard card)
     {
@@ -172,9 +172,11 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
                 if(minionGeneration.minionLedgeDetection(entities, (Minion)e)) {
                     continue;
                 }
-
-                e.setX(e.getX() + 1);
-                e.setY(e.getY() + 2);
+                else
+                {
+                    e.setX(e.getX() + 1);
+                    e.setY(e.getY() + 2);
+                }
             }
 
             if(e.getX()<-50)
