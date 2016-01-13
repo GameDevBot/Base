@@ -23,7 +23,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
     //Main thread variables
     Hero hero;
-    GemGeneration gemGen = new GemGeneration(); 
+    GemGeneration gemGen = new GemGeneration();
+    MinionGeneration minionGeneration = new MinionGeneration();
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -34,7 +35,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public ArrayList <entity> entities;
     private SideScroller scroller;
     public double scrollRate = 2;
-    Random random = new Random(1);
+    Random random = new Random(2);
 
     public Game()
     {
@@ -54,6 +55,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         entities = new ArrayList();
         generateInitialLedges();
         gemGen.generateInitialGems(entities, hero);
+        minionGeneration.spawnTroopers(entities);
         entities.add(hero);
     }
 
@@ -64,6 +66,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         for(entity e : entities)
             e.draw(g);
     }
+
 
     private void generateInitialLedges()
     {
@@ -112,6 +115,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         else if(previous.getY() == 500)
             ledgeY = 400;
 
+
         return new Ledge(ledgeX,ledgeY,10,50);
     }
 
@@ -126,15 +130,31 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
     private void scroll()
     {
+        double ledgeX = 0;
+        double ledgeY = 0;
         scroller.scroll(scrollRate);
         for(int i = 0; i< entities.size(); i++)
         {
             entity e = entities.get(i);
+
             if(e instanceof Hero)
                 continue;
 
 
             e.setX(e.getX() - scrollRate);
+
+            if(e instanceof Minion)
+            {
+                System.out.print("hello");
+
+
+                if(minionGeneration.minionLedgeDetection(entities, (Minion)e)) {
+                    continue;
+                }
+
+                e.setX(e.getX() + 1);
+                e.setY(e.getY() + 2);
+            }
 
             if(e.getX()<-50)
             {
@@ -143,6 +163,7 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
                     Ledge ledge = generateLedge((Ledge)e);
                     ledge.setX(1000);
                     entities.add(ledge);
+
                 }
                 
                 if (e instanceof Gem) 
