@@ -7,7 +7,6 @@ import java.util.Random;
 /**
  * Created by Damian Suski on 1/6/2016.
  */
-//REALLY MADE BY FARZA HAHA
 
     /*Ideas for final game:
     Increase / decrease scroll speed
@@ -18,13 +17,19 @@ import java.util.Random;
     Invulnerability (except from falling)
     Removing a ledge
     Adding a ledge
+    Fake gems
     */
 public class Game extends JPanel implements MouseListener,MouseMotionListener,KeyListener{
 
     //Main thread variables
+<<<<<<< HEAD
     Hero hero;
     GemGeneration gemGen = new GemGeneration();
     MinionGeneration minionGeneration = new MinionGeneration();
+=======
+    public Hero hero;
+    GemGeneration gemGen = new GemGeneration(); 
+>>>>>>> origin/master
     public boolean running = true;
     final int targetFPS = 60;
     Thread thread;
@@ -35,14 +40,26 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public ArrayList <entity> entities;
     private SideScroller scroller;
     public double scrollRate = 2;
+<<<<<<< HEAD
     Random random = new Random(2);
+=======
+    private Random random = new Random(1);
+    private CommandCard commands;
+>>>>>>> origin/master
 
-    public Game()
+    public Game(CommandCard card)
     {
+        setLayout(null);
+        setBounds(0,0,800,600);
+        commands = card;
         initialize();
         startThread();
     }
 
+    public Hero getHero()
+    {
+        return hero;
+    }
 
     private void initialize()
     {
@@ -65,6 +82,10 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
         scroller.paintBackground(g);
         for(entity e : entities)
             e.draw(g);
+        g.setColor(Color.BLACK);
+        g.fillRect(800,0,200,600);
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(820,20,155,535);
     }
 
 
@@ -220,8 +241,6 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
                 e.printStackTrace();
             }
             tick++;
-            //if(tick>100)
-            //    running=!running;
         }
     }
 
@@ -239,6 +258,8 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
     public void mouseClicked(MouseEvent e) {
 
     }
+
+    public void reFocus(){this.requestFocus();}
 
     @Override
     public void mousePressed(MouseEvent e) {
