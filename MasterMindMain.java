@@ -13,12 +13,12 @@ public class MasterMindMain extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
-        setVisible(true);
         CommandCard card = null;
         Game game = new Game(card);
         card = new CommandCard(game);
         add(card);
         add(game);
+        setVisible(true);
     }
 
     public static void main(String args[])

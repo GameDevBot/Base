@@ -163,19 +163,16 @@ public class Game extends JPanel implements MouseListener,MouseMotionListener,Ke
 
 
             e.setX(e.getX() - scrollRate);
-
+            
+            
             if(e instanceof Minion)
             {
-                System.out.print("hello");
-
-
                 if(minionGeneration.minionLedgeDetection(entities, (Minion)e)) {
                     continue;
                 }
                 else
                 {
-                    e.setX(e.getX() + 1);
-                    e.setY(e.getY() + 2);
+                 minionGeneration.minionDrop((Minion)e);
                 }
             }
 

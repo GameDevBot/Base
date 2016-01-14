@@ -115,6 +115,7 @@ public class CommandCard extends JPanel{
     private void reverseGravity()
     {
         game.getHero().gravity*=-1;
+        game.getHero().gravityOn = false;
     }
 
     private void changeScroll(boolean isIncrease)

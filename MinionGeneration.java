@@ -43,9 +43,16 @@ public class MinionGeneration {
                 if (ledgeY  == minion.getY() && minion.getX() > ledgeX);
                     return true;
             }
+          
         }
 
         return false;
+    }
+    
+    public void minionDrop(Minion minion)
+    {
+        minion.setX(minion.getX() + 1);
+        minion.setY(minion.getY() + 2);
     }
 
     public boolean collision(Rectangle rectangleMinion, Rectangle rectangleLedge)

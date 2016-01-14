@@ -24,6 +24,7 @@ public class Hero implements entity {
     private Rectangle rectangleGem;
     private Game game;
     public int gravity = 5;
+    public boolean gravityOn = true;
 
     public Hero(double x, double y, Game game) {
         this.x = x;
@@ -146,6 +147,7 @@ public class Hero implements entity {
             rectangleHero = new Rectangle((int) x+heroDX, (int)y+heroDY, 8, 30);
 
             if (collision()) {
+              
                 if (ledgeY - 30 == y)
                 {
                     heroDY = 0;
